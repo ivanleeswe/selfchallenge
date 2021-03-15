@@ -1,0 +1,8 @@
+.card {
+  display: flex;
+  color: blue;
+  background-color: plum;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+
+}
