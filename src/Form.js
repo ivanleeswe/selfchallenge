@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 import './Form.css';
 
-function Form({getData}) {
+function Form({getData, toggle}) {
   const[input, setInput] = useState('');
 
   const handleSubmit = (e) => {
@@ -11,15 +11,20 @@ function Form({getData}) {
     setInput("");
   }
 
+  const handleToggle = () => {
+    toggle();
+  }
+  
+
   return (
   <div className="form"> 
     <form onSubmit={handleSubmit}>
       <input className="search__input" type="text" value={input} onChange={e => setInput(e.target.value)}>
       </input> 
     </form>
-    <label class="switch">
-      <input type="checkbox"/>
-      <span class="slider round"></span>
+    <label className="switch" >
+      <input type="checkbox" onClick={handleToggle}/>
+      <span className="slider round" ></span>
     </label>
   </div>
  

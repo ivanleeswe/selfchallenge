@@ -3,21 +3,50 @@ import './App.css';
 import Form from './Form';
 import Cards from './Cards';
 
-import workerData from './data'
+import orders from './data';
+import worker from './data2';
+
 
 function App() {
-  const allData = workerData;
-  const[input, setInput] = useState('');
+  const[orderWorker, setOrderWorker] = useState([]);
+  const[isOpen, setIsOpen] = useState(true);
+  const[nameInput, setNameInput] = useState('');
 
 
-  const getData = (input) => {
-    setInput(input);
+    useEffect(() => {
+      displayData();
+    }, [])
+
+  const displayData = () => {
+    let orderData = orders.orders
+    let workerData = worker.worker
+    let orderWorkerArr = [];
+
+    for(let i = 0; i < orderData.length; i++) {
+      for(let j = 0; j < workerData.length; j++) {
+        if(orderData[i].workerId.toString() === workerData[j].id) {
+            orderWorkerArr.push([orderData[i], workerData[j]] )
+        }
+      }
+    }
+    setOrderWorker(orderWorkerArr)
   }
+
+
+  const toggle = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const getData = (name) => {
+    setNameInput(name);
+  }
+
+
 
   return (
     <div>
-      <Form getData={getData}/>
-      <Cards allData={allData.orders}/>
+      <Form getData={getData} orderWorker={orderWorker} toggle={toggle}/>
+      <Cards orderWorker={orderWorker} isOpen={isOpen} nameInput={nameInput}/>
     </div>
   );
 }
